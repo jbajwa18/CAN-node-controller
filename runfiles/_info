@@ -1,0 +1,105 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/18.1
+Xcan_package
+Z0 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z1 !s110 1784139002
+!i10b 1
+!s100 3ZaG@9fZRjON;_W0]VYJY0
+I2e7LfcbmP_C33[Lc;0WY_1
+V2e7LfcbmP_C33[Lc;0WY_1
+S1
+Z2 dD:/projects/CAN controller
+w1781106661
+8D:/projects/CAN controller/work/can_package.sv
+FD:/projects/CAN controller/work/can_package.sv
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1784139002.000000
+!s107 D:/projects/CAN controller/work/can_package.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/work/can_package.sv|
+!i113 1
+Z5 o-work work -sv
+Z6 tCvgOpt 0
+vcan_timing
+R0
+R1
+!i10b 1
+!s100 h>`_;=X1E;^7VQgBBIeb>2
+I3K@M98LC^^Q:G_U?O@jHQ3
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+!s105 can_bit_timing_sv_unit
+S1
+R2
+w1781102558
+8D:/projects/CAN controller/work/can_bit_timing.sv
+FD:/projects/CAN controller/work/can_bit_timing.sv
+L0 5
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/projects/CAN controller/work/can_bit_timing.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/work/can_bit_timing.sv|
+!i113 1
+R5
+R6
+vtb_can_tx_engine
+R0
+R1
+!i10b 1
+!s100 h:Lf`RZdB<mG0HH?JNeQO3
+IDMZ@1AYJVXHMi?=Q[AkE42
+R7
+!s105 tb_can_tx_engine_sv_unit
+S1
+R2
+w1784138764
+8D:/projects/CAN controller/tb_can_tx_engine.sv
+FD:/projects/CAN controller/tb_can_tx_engine.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/projects/CAN controller/tb_can_tx_engine.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/tb_can_tx_engine.sv|
+!i113 1
+R5
+R6
+vtiming_tb
+R0
+R1
+!i10b 1
+!s100 Se]V<h?X33lYFzLnmbhG;2
+IY<jg2f?B8Q@zIgNO=VCEc2
+R7
+!s105 timing_tb_sv_unit
+S1
+R2
+w1781102655
+8D:/projects/CAN controller/timing_tb.sv
+FD:/projects/CAN controller/timing_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/projects/CAN controller/timing_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/timing_tb.sv|
+!i113 1
+R5
+R6

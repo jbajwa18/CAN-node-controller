@@ -1,0 +1,269 @@
+import can_package::*;
+
+module can_tx_engine(
+    input logic clk,
+    input logic rst_n,
+    input logic tick,
+
+    input logic start_tx,
+
+    input logic [10:0] id, // 11-bit CAN identifier
+    input logic [3:0] data_length, // number of data bytes (0-8)
+    input logic [63:0] data, // up to 8 bytes of data 
+
+    output logic tx_busy, // indicates transmission in progress
+    output logic tx_line // CAN bus line for transmission
+);
+
+// typedef enum logic [2:0] { 
+//     IDLE,
+//     SOF,
+//     ID,
+//     CTRL,
+//     DATA,
+//     EOF
+//  } tx_state_t;
+
+tx_state_t state, next_state;
+
+// bit counters
+logic [3:0] id_cnt; // counts bits within a field
+logic [2:0] ctrl_cnt; // counts bits in control field
+logic [6:0] data_cnt; // counts bits in data field 
+logic [2:0] eof_cnt; // counts bits in EOF field
+
+// data storage for transmission start
+logic [10:0] id_reg;
+logic [3:0] data_length_reg; // no. of bytes
+logic [63:0] data_reg;
+logic [6:0] ctrl_field;
+// serializer shift register and length (bits remaining)
+logic [63:0] tx_shift;
+logic [6:0] tx_shift_len;
+logic [6:0] tmp_total_bits;
+
+// logic block for loading data on start of transmission
+
+always_ff @(posedge clk or negedge rst_n) begin
+    if(!rst_n) begin
+        id_reg <= '0;
+        data_length_reg <= '0;
+        data_reg <= '0;
+    end else if(start_tx && state == TX_IDLE) begin
+        id_reg <= id;
+        data_length_reg <= data_length;
+        data_reg <= data;
+    end
+end
+
+// next state logic
+
+// state update + load/shift serializer
+always_ff @( posedge clk or negedge rst_n ) begin
+    if(!rst_n) begin
+        state <= TX_IDLE;
+        tx_shift <= '0;
+        tx_shift_len <= 0;
+        tmp_total_bits <= 0;
+    end else begin
+        // if we're about to enter a new state, preload the serializer for that state
+        if(next_state != state) begin
+            case(next_state)
+                TX_ID: begin
+                    // place ID MSB at bit 63 so we can shift left and output tx_shift[63]
+                    tx_shift <= {{(64-11){1'b0}}, id_reg} << (64-11);
+                    tx_shift_len <= 11;
+                end
+
+                TX_CTRL: begin
+                    tx_shift <= {{(64-7){1'b0}}, ctrl_field} << (64-7);
+                    tx_shift_len <= 7;
+                end
+
+                TX_DATA: begin
+                    tmp_total_bits = data_length_reg * 8;
+                    if (tmp_total_bits == 0) begin
+                        tx_shift_len <= 0;
+                        tx_shift <= '0;
+                    end else begin
+                        tx_shift <= data_reg << (64 - tmp_total_bits);
+                        tx_shift_len <= tmp_total_bits;
+                    end
+                end
+
+                default: begin
+                    tx_shift_len <= 0;
+                    tx_shift <= '0;
+                end
+            endcase
+        end else begin
+            // if staying in same state, shift on tick while bits remain
+            if(tick && (state == TX_ID || state == TX_CTRL || state == TX_DATA) && tx_shift_len > 0) begin
+                tx_shift <= tx_shift << 1; // move next bit into MSB position
+                tx_shift_len <= tx_shift_len - 1;
+            end
+        end
+
+        state <= next_state;
+    end
+end
+
+always_comb begin
+
+    next_state = state; // default to hold state
+
+    case(state)
+
+        TX_IDLE: begin
+            if(start_tx) next_state = TX_SOF; // start transmission on signal
+            
+        end
+
+        TX_SOF: begin
+            if(tick) next_state = TX_ID; // move to ID field on tick
+            
+        end
+
+        TX_ID: begin
+            if(tick && id_cnt == 10) begin
+                next_state = TX_CTRL; 
+            end
+
+        end
+
+        TX_CTRL: begin
+            if(tick && ctrl_cnt == 6) begin
+                next_state = TX_DATA; // move to data field after sending 4 bits (0-3)
+            end 
+            
+        end
+
+        TX_DATA: begin
+            if(data_length_reg == 0) begin 
+                next_state = TX_EOF; // if no data bytes, skip to EOF
+            end else if(tick && data_cnt == (data_length_reg*8 - 1)) begin
+                next_state = TX_EOF; // move to EOF after sending all data bits
+            end
+            
+        end
+
+        TX_EOF: begin    
+            if(tick && eof_cnt == 6) begin
+                next_state = TX_IDLE; // return to idle after sending 7 bits (0-6)      
+            end 
+            
+        end
+
+    default: next_state = TX_IDLE;
+
+    endcase
+    
+end
+
+always_ff @(posedge clk or negedge rst_n) begin 
+    if(!rst_n) begin
+        id_cnt <= '0;
+        ctrl_cnt <= '0;
+        data_cnt <= '0;
+        eof_cnt <= '0;
+    end else begin
+        case(state)
+
+            TX_ID: begin
+                if(tick) begin
+                    if(id_cnt == 10) id_cnt <= 0; // finished 11 ID bits (0-10)
+                    else id_cnt <= id_cnt + 1;
+                end
+            end
+
+            TX_CTRL: begin
+                if(tick) begin
+                    if(ctrl_cnt == 6) ctrl_cnt <= 0;
+                    else ctrl_cnt <= ctrl_cnt + 1;
+                end
+            end
+
+            TX_DATA: begin
+                if(tick) begin
+                    if(data_cnt == (data_length_reg*8 - 1)) data_cnt <= 0;
+                    else data_cnt <= data_cnt + 1;
+                end
+            end
+
+            TX_EOF: begin
+                if(tick) begin
+                    if(eof_cnt == 6) eof_cnt <= 0;
+                    else eof_cnt <= eof_cnt + 1;
+                end
+            end
+
+            default: begin
+                // hold counters by default
+                id_cnt <= id_cnt;
+                ctrl_cnt <= ctrl_cnt;
+                data_cnt <= data_cnt;
+                eof_cnt <= eof_cnt;
+            end
+
+        endcase
+    end
+
+end
+
+logic [6:0] total_bits;
+logic [6:0] bit_index;
+
+// drive tx_busy and tx_line based on FSM state and bit counters
+always_comb begin
+    // default values
+    tx_busy = (state != TX_IDLE);
+    tx_line = 1'b1; // recessive default
+
+    // build control field: {rtr(=0), DLC[3:0], reserved[1:0]} -> 7 bits
+    ctrl_field = {1'b0, 1'b0, 1'b0,data_length_reg};
+
+    unique case(state)
+        TX_IDLE: begin
+            tx_line = 1'b1; // recessive
+        end
+
+        TX_SOF: begin
+            // Start Of Frame: dominant 0 for one bit
+            tx_line = 1'b0;
+        end
+
+        TX_ID: begin
+            // send ID MSB first: id_reg[CAN_ID_WIDTH-1 - id_cnt]
+            tx_line = id_reg[CAN_ID_WIDTH-1 - id_cnt];
+        end
+
+        TX_CTRL: begin
+            // send control bits MSB first from ctrl_field
+            tx_line = ctrl_field[6 - ctrl_cnt];
+        end
+
+        TX_DATA: begin
+            // send data bits MSB-first within the used bytes
+            // number of data bits = data_length_reg * 8
+            if (data_length_reg == 0) tx_line = 1'b1;
+            else begin
+                total_bits = data_length_reg << 3; // equivalent to * 8
+                bit_index = total_bits - 1 - data_cnt;
+                // map into data_reg where MSB of used field is at bit (total_bits-1)
+                // assume data_reg packs bytes MSB-first for the used field
+                tx_line = data_reg[bit_index];
+            end
+        end
+
+        TX_EOF: begin
+            // EOF is a sequence of recessive bits (1)
+            tx_line = 1'b1;
+        end
+
+        default: begin
+            tx_line = 1'b1;
+        end
+    endcase
+end
+
+endmodule

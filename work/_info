@@ -1,0 +1,154 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/projects/CAN controller
+Xcan_package
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1784140222
+!i10b 1
+!s100 U>QkZ>4bL<zS@YD8lZick3
+I0:=n>oK@j[>[_l=b^MTMC1
+V0:=n>oK@j[>[_l=b^MTMC1
+S1
+R0
+w1784139723
+8D:/projects/CAN controller/can_package.sv
+FD:/projects/CAN controller/can_package.sv
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1784140222.000000
+!s107 D:/projects/CAN controller/can_package.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/can_package.sv|
+!i113 1
+Z5 o-work work -sv
+Z6 tCvgOpt 0
+vcan_timing
+R1
+Z7 !s110 1784140221
+!i10b 1
+!s100 h>`_;=X1E;^7VQgBBIeb>2
+IYbG@WElA3mdB70z1mgmG22
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+!s105 can_bit_timing_sv_unit
+S1
+R0
+w1781102558
+8D:/projects/CAN controller/can_bit_timing.sv
+FD:/projects/CAN controller/can_bit_timing.sv
+L0 5
+R3
+r1
+!s85 0
+31
+Z9 !s108 1784140221.000000
+!s107 D:/projects/CAN controller/can_bit_timing.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/can_bit_timing.sv|
+!i113 1
+R5
+R6
+vcan_tx_engine
+R1
+Z10 DXx4 work 11 can_package 0 22 0:=n>oK@j[>[_l=b^MTMC1
+DXx4 work 21 can_tx_engine_sv_unit 0 22 1>OT3USAIG4b9Yj:FKokH3
+R8
+r1
+!s85 0
+31
+!i10b 1
+!s100 5PA>6OaEMfNl7[g43B0m12
+Icj<HcB=l@mh55lD]]2TAT3
+!s105 can_tx_engine_sv_unit
+S1
+R0
+Z11 w1784139969
+Z12 8D:/projects/CAN controller/can_tx_engine.sv
+Z13 FD:/projects/CAN controller/can_tx_engine.sv
+L0 3
+R3
+R4
+Z14 !s107 D:/projects/CAN controller/can_tx_engine.sv|
+Z15 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/can_tx_engine.sv|
+!i113 1
+R5
+R6
+Xcan_tx_engine_sv_unit
+R1
+R10
+V1>OT3USAIG4b9Yj:FKokH3
+r1
+!s85 0
+31
+!i10b 1
+!s100 a3HjEK;`mnFzI]OWG>Io41
+I1>OT3USAIG4b9Yj:FKokH3
+!i103 1
+S1
+R0
+R11
+R12
+R13
+L0 1
+R3
+R4
+R14
+R15
+!i113 1
+R5
+R6
+vtb_can_tx_engine
+R1
+R2
+!i10b 1
+!s100 6P;^jQ`9E[IU]G;j2i7;30
+Ic9Cd;UFgiegc7:nL[kZ2H1
+R8
+!s105 tb_can_tx_engine_sv_unit
+S1
+R0
+w1784140154
+8D:/projects/CAN controller/tb_can_tx_engine.sv
+FD:/projects/CAN controller/tb_can_tx_engine.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/projects/CAN controller/tb_can_tx_engine.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/tb_can_tx_engine.sv|
+!i113 1
+R5
+R6
+vtiming_tb
+R1
+R7
+!i10b 1
+!s100 Se]V<h?X33lYFzLnmbhG;2
+IY<jg2f?B8Q@zIgNO=VCEc2
+R8
+!s105 timing_tb_sv_unit
+S1
+R0
+w1781102655
+8D:/projects/CAN controller/timing_tb.sv
+FD:/projects/CAN controller/timing_tb.sv
+L0 1
+R3
+r1
+!s85 0
+31
+R9
+!s107 D:/projects/CAN controller/timing_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/projects/CAN controller/timing_tb.sv|
+!i113 1
+R5
+R6

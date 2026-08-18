@@ -1,0 +1,44 @@
+{D:/projects/CAN controller/can_tx_engine.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_tx_engine.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling package can_tx_engine_sv_unit
+-- Importing package can_package
+-- Compiling module can_tx_engine
+
+Top level modules:
+	can_tx_engine
+
+} {} {}} {D:/projects/CAN controller/can_bit_timing.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_bit_timing.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module can_timing
+
+Top level modules:
+	can_timing
+
+} {} {}} {D:/projects/CAN controller/can_crc15.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_crc15.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+
+} {} {}} {D:/projects/CAN controller/tb_can_tx_engine.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/tb_can_tx_engine.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_can_tx_engine
+
+Top level modules:
+	tb_can_tx_engine
+
+} {} {}} {D:/projects/CAN controller/timing_tb.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/timing_tb.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module timing_tb
+
+Top level modules:
+	timing_tb
+
+} {} {}} {D:/projects/CAN controller/can_controller.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_controller.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+
+} {} {}} {D:/projects/CAN controller/can_package.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_package.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling package can_package
+
+Top level modules:
+	--none--
+
+} {} {}}

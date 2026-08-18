@@ -1,0 +1,40 @@
+{D:/projects/CAN controller/can_tx_engine.sv} {0 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_tx_engine.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+** Error: D:/projects/CAN controller/can_tx_engine.sv(1): (vlog-13006) Could not find the package (can_package).  Design read will continue, but expect a cascade of errors after this failure.  Furthermore if you experience a vopt-7 error immediately before this error then please check the package names or the library search paths on the command line.
+** Error: (vlog-13069) D:/projects/CAN controller/can_tx_engine.sv(52): near ":": syntax error, unexpected ':'.
+
+} {3.0 5.0} {}} {D:/projects/CAN controller/tb_can_tx_engine.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/tb_can_tx_engine.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module tb_can_tx_engine
+
+Top level modules:
+	tb_can_tx_engine
+
+} {} {}} {D:/projects/CAN controller/can_bit_timing.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_bit_timing.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module can_timing
+
+Top level modules:
+	can_timing
+
+} {} {}} {D:/projects/CAN controller/can_crc15.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_crc15.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+
+} {} {}} {D:/projects/CAN controller/timing_tb.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/timing_tb.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module timing_tb
+
+Top level modules:
+	timing_tb
+
+} {} {}} {D:/projects/CAN controller/can_controller.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_controller.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+
+} {} {}} {D:/projects/CAN controller/can_package.sv} {1 {vlog -work work -sv -stats=none {D:/projects/CAN controller/can_package.sv}
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling package can_package
+
+Top level modules:
+	--none--
+
+} {} {}}
